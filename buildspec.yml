@@ -1,0 +1,29 @@
+version: 0.2
+env:
+  variables:
+    BUILD_FOLDER: "pwh-frontend"
+    BUILD_ENV: "prod"
+phases:
+  install:
+    runtime-versions:
+      nodejs: 12
+  pre_build:
+    commands:
+      - echo Installing source NPM dependencies...
+      - npm install -g @angular/cli
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`...
+      - echo Compiling the source code...
+      - ng build --${BUILD_ENV}
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
+  base-directory: 'dist/${BUILD_FOLDER}'
+
+
